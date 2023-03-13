@@ -16,6 +16,14 @@
             <a href="{% url 'publicacion_nueva' %}">+ Nueva publicacion blog</a>
           </div>
         </header>
+        {% if user.is_authenticated %}
+          <p>Hola {{ user.username }}</p>
+          <p><a href="{% url 'logout' %}">Cerrar sesion</a></p>
+        {% else %}
+          <p>No ha iniciado sesion. </p>
+          <a href="{% url 'login' %}">Inicie sesion ahora</a>
+          <br><a href="{% url 'registro' %}">o registrese</a>
+        {% endif %}
         <div>
           {% block contenido %}
           {% endblock contenido %}

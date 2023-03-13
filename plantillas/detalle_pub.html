@@ -3,7 +3,9 @@
 
 {% block contenido %}
 <div class ="entrada-pub">
-    <h2>{{ publicacion.titulo }}</h2>
+    <h2>{{ object.titulo }}</h2>
     <h2>{{ publicacion.cuerpo }}</h2>
 </div>
+<a href="{% url 'editar_publicacion' publicacion.pk%}">+ Editar Publicacion</a>
+<a href="{% url 'eliminar_publicacion' publicacion.pk %}">- Eliminar Publicacion</a>
 {% endblock contenido %}

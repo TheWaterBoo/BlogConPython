@@ -44,3 +44,34 @@ class PruebasBlog(TestCase):
     self.assertEqual(sin_respuesta.status_code, 404)
     self.assertContains(respuesta, 'Un buen titulo')
     self.assertTemplateUsed(respuesta, 'detalle_pub.html')
+
+  def test_vista_crear_publicacion(self):
+    respuesta = self.client.post(
+      reverse('publicacion_nueva'),
+      {
+        'titulo': 'Nuevo titulo',
+        'cuerpo': 'Nuevo texto',
+        'autor': self.usuario.id,
+      },
+    )
+    self.assertEqual(respuesta.status_code, 302)
+    self.assertEqual(Publicacion.objects.last().titulo, 'Nuevo titulo')
+    self.assertEqual(Publicacion.objects.last().cuerpo, 'Nuevo texto')
+
+  def test_vista_editar_publicacion(self):
+    respuesta = self.client.post(
+      reverse('editar_publicacion', args='1'),
+      {
+        'titulo': 'Titulo modificado',
+        'cuerpo': 'Texto modificado',
+      },
+    )
+    self.assertEqual(respuesta.status_code, 302)
+    self.assertEqual(Publicacion.objects.last().titulo, 'Titulo modificado')
+    self.assertEqual(Publicacion.objects.last().cuerpo, 'Texto modificado')
+
+  def test_vista_eliminar_publicacion(self):
+    respuesta = self.client.post(
+      reverse('eliminar_publicacion', args='1')
+    )
+    self.assertEqual(respuesta.status_code, 302)

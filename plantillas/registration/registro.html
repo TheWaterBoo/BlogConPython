@@ -1,0 +1,10 @@
+<!-- plantillas / registration / registro.html -->
+{% extends 'base.html' %}
+
+{% block contenido %}
+<h2>Registro</h2>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Registro</button>
+</form>
+{% endblock contenido %}
